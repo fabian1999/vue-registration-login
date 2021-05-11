@@ -41,7 +41,7 @@
         <input
           type="text"
           v-model="user.username"
-          v-validate="'required'"
+          v-validate="{ required: true, email: true }"
           name="username"
           class="form-control"
           :class="{ 'is-invalid': submitted && errors.has('username') }"
