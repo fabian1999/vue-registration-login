@@ -58,7 +58,7 @@
         <input
           type="password"
           v-model="user.password"
-          v-validate="'min:8|number|upCase'"
+          v-validate="'required|min:8|number|upCase'"
           name="password"
           class="form-control"
           :class="{ 'is-invalid': submitted && errors.has('password') }"
