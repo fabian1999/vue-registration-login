@@ -55,14 +55,17 @@ const mutations = {
     loginSuccess(state, user) {
         state.status = { loggedIn: true };
         state.user = user;
+        state.jwtToken = 'fake-jwt-token'
     },
     loginFailure(state) {
         state.status = {};
         state.user = null;
+        state.jwtToken = undefined;
     },
     logout(state) {
         state.status = {};
         state.user = null;
+        state.jwtToken = undefined;
     },
     registerRequest(state, user) {
         state.status = { registering: true };
