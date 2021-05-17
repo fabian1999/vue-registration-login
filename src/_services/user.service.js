@@ -7,7 +7,7 @@ export const userService = {
   register,
   getAll,
   getById,
-  update,
+  update: _update,
   delete: _delete,
 };
 
@@ -93,6 +93,18 @@ function _delete(id) {
   const requestOptions = {
     method: "DELETE",
     headers: authHeader(),
+  };
+
+  return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(
+    handleResponse
+  );
+}
+
+function _update(id, employee) {
+  const requestOptions = {
+    method: "PUT",
+    headers: { ...authHeader(), "Content-Type": "application/json" },
+    body: JSON.stringify(employee),
   };
 
   return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(

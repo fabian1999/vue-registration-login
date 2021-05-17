@@ -11,6 +11,7 @@
                 <span v-if="user.deleting"><em> - Deleting...</em></span>
                 <span v-else-if="user.deleteError" class="text-danger"> - ERROR: {{user.deleteError}}</span>
                 <span v-else> - <a @click="deleteUser(user.id)" class="text-danger">Delete</a></span>
+                <span><a @click="updateUser(user.id)" class="text-success">Modify</a></span>
             </li>
         </ul>
         <p>
@@ -35,7 +36,8 @@ export default {
     methods: {
         ...mapActions('users', {
             getAllUsers: 'getAll',
-            deleteUser: 'delete'
+            deleteUser: 'delete',
+            updateUser: 'update'
         })
     }
 };

@@ -24,9 +24,19 @@ const actions = {
       );
     }
   },
+
+  update({ commit }, id, user) {
+
+    userService.update(id, user).then(
+      (users) => commit("updateSuccess", user),
+    );
+  }
 };
 
 const mutations = {
+  updateSuccess(state, users) {
+    state.all = { items: users };
+  },
   getAllRequest(state) {
     state.all = { loading: true };
   },
