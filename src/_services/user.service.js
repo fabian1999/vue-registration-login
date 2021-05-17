@@ -1,5 +1,6 @@
 import config from "config";
 import { authHeader } from "../_helpers";
+import axios from "axios";
 
 export const userService = {
   login,
@@ -76,18 +77,6 @@ function getById(id) {
   );
 }
 
-function update(user) {
-  const requestOptions = {
-    method: "PUT",
-    headers: { ...authHeader(), "Content-Type": "application/json" },
-    body: JSON.stringify(user),
-  };
-
-  return fetch(`${config.apiUrl}/users/${user.id}`, requestOptions).then(
-    handleResponse
-  );
-}
-
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
   const requestOptions = {
@@ -100,16 +89,23 @@ function _delete(id) {
   );
 }
 
-function _update(id, employee) {
+function _update(employee) {
+
+  let newEmployee = {lastName: employee.user.lastName, firstName: employee.user.firstName, email: employee.user.email}
+
   const requestOptions = {
     method: "PUT",
     headers: { ...authHeader(), "Content-Type": "application/json" },
-    body: JSON.stringify(employee),
+    body: JSON.stringify(newEmployee),
   };
 
-  return fetch(`${config.apiUrl}/users/${id}`, requestOptions).then(
-    handleResponse
-  );
+  return axios.put("https://localhost:5001/employee/Employee/" + employee.id, newEmployee)
+    .then((resp) => {
+        console.log(resp);
+    })
+    .catch(e => {
+        console.log(e)
+    })
 }
 
 function handleResponse(response) {

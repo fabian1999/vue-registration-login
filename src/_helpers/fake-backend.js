@@ -101,32 +101,6 @@ export function configureFakeBackend() {
                     return;
                 }
 
-                // update user
-                if (url.match(/\/users\/\d+$/) && opts.method === 'PUT') {
-                    // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
-                    if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
-                        // find user by id in users array
-                        let urlParts = url.split('/');
-                        let id = parseInt(urlParts[urlParts.length - 1]);
-                        let newEmployee = {lastName: 'test', firstName: 'da', email: 'da'}
-                        axios.put("https://localhost:5001/employee/Employee/" + id, newEmployee)
-                        .then((resp) => {
-                            console.log(resp);
-                        })
-                        .catch(e => {
-                            console.log(e)
-                        })
-
-                        // respond 200 OK
-                        resolve({ ok: true, text: () => Promise.resolve() });
-                    } else {
-                        // return 401 not authorised if token is null or invalid
-                        reject('Unauthorised');
-                    }
-
-                    return;
-                }
-
                 // delete user
                 if (url.match(/\/users\/\d+$/) && opts.method === 'DELETE') {
                     // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
